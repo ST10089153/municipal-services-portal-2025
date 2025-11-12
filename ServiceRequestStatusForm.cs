@@ -9,7 +9,7 @@ namespace MunicipalServicesReporting
     public partial class ServiceRequestStatusForm : Form
     {
         private ServiceRequestManager requestManager;
-
+        
         // UI Components
         private Panel headerPanel;
         private Panel filterPanel;
@@ -72,7 +72,7 @@ namespace MunicipalServicesReporting
                 Text = "🔍",
                 Font = new Font("Segoe UI", 38),
                 ForeColor = Color.FromArgb(168, 85, 247),
-                Location = new Point(40, 40),
+                Location = new Point(1270, 40),  // Moved to right side
                 AutoSize = true
             };
             headerPanel.Controls.Add(lblIcon);
@@ -82,20 +82,21 @@ namespace MunicipalServicesReporting
                 Text = "Service Request Status",
                 Font = new Font("Segoe UI", 26, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
-                Location = new Point(115, 30),
                 AutoSize = true
             };
+            lblTitle.Location = new Point(1270 - lblTitle.PreferredWidth - 55, 30);  // Positioned to left of icon
             headerPanel.Controls.Add(lblTitle);
 
             Label lblSubtitle = new Label
             {
-                Text = "Track your service requests with advanced data structure analytics",
+                Text = "Track requests using BST, AVL Tree, Red-Black Tree, Min Heap & Graph",
                 Font = new Font("Segoe UI", 11),
                 ForeColor = Color.FromArgb(107, 114, 128),
-                Location = new Point(125, 75),
                 AutoSize = true
             };
+            lblSubtitle.Location = new Point(1270 - lblSubtitle.PreferredWidth - 55, 75);
             headerPanel.Controls.Add(lblSubtitle);
+
             this.Controls.Add(headerPanel);
 
             // Statistics Panel
@@ -164,7 +165,7 @@ namespace MunicipalServicesReporting
             // Search by ID
             Label lblSearchId = new Label
             {
-                Text = "Request ID",
+                Text = "Request ID (BST Search)",
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(30, 60),
@@ -229,7 +230,7 @@ namespace MunicipalServicesReporting
             // Priority filter
             Label lblPriority = new Label
             {
-                Text = "Priority",
+                Text = "Priority (AVL Tree)",
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(720, 60),
@@ -310,8 +311,8 @@ namespace MunicipalServicesReporting
 
             Label lblTip = new Label
             {
-                Text = "💡 Powered by BST, AVL Tree, Red-Black Tree, Min Heap, and Graph • Double-click for details",
-                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                Text = "💡 Data Structures: BST (ID lookup), AVL Tree (priority), Red-Black Tree (dates), Min Heap (queue), Graph (dependencies)",
+                Font = new Font("Segoe UI", 9, FontStyle.Italic),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(240, 25),
                 AutoSize = true
@@ -442,6 +443,7 @@ namespace MunicipalServicesReporting
         private void DisplayRequests(List<ServiceRequest> requests)
         {
             lvRequests.Items.Clear();
+
             foreach (var request in requests)
             {
                 ListViewItem item = new ListViewItem(request.RequestId);
@@ -462,8 +464,8 @@ namespace MunicipalServicesReporting
                 item.SubItems.Add(completion);
                 item.SubItems.Add(request.CitizenImpactScore.ToString());
                 item.SubItems.Add(request.Location);
-                item.Tag = request;
 
+                item.Tag = request;
                 item.BackColor = GetStatusColor(request.Status);
                 item.ForeColor = GetPriorityTextColor(request.PriorityLevel);
 
@@ -474,6 +476,7 @@ namespace MunicipalServicesReporting
 
                 lvRequests.Items.Add(item);
             }
+
             UpdateStatistics();
         }
 
@@ -541,6 +544,7 @@ namespace MunicipalServicesReporting
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
+            // BST Search by ID - O(log n) average case
             if (!string.IsNullOrWhiteSpace(txtSearchId.Text))
             {
                 var request = requestManager.SearchById(txtSearchId.Text.Trim());
@@ -548,7 +552,9 @@ namespace MunicipalServicesReporting
                 {
                     DisplayRequests(new List<ServiceRequest> { request });
                     MessageBox.Show(
-                        $"Found using Binary Search Tree!\n\n" +
+                        $"✓ Found using Binary Search Tree (BST)!\n\n" +
+                        $"Data Structure: BST provides O(log n) average search time\n" +
+                        $"Implementation: BinarySearchTree<string, ServiceRequest>\n\n" +
                         $"Request: {request.Title}\n" +
                         $"Status: {GetStatusText(request.Status)}\n" +
                         $"Priority: {request.PriorityLevel}",
@@ -564,6 +570,7 @@ namespace MunicipalServicesReporting
                 return;
             }
 
+            // Multi-criteria search using combined data structures
             string category = cmbCategory.SelectedItem?.ToString();
             RequestStatus? status = null;
             Priority? priority = null;
@@ -576,6 +583,7 @@ namespace MunicipalServicesReporting
 
             if (cmbPriority.SelectedIndex > 0)
             {
+                // AVL Tree is used internally for priority-based retrieval
                 priority = (Priority)Enum.Parse(typeof(Priority), cmbPriority.SelectedItem.ToString());
             }
 
@@ -585,6 +593,18 @@ namespace MunicipalServicesReporting
             if (results.Count == 0)
             {
                 MessageBox.Show("No requests match your search criteria.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (priority.HasValue)
+            {
+                MessageBox.Show(
+                    $"✓ Results retrieved using AVL Tree!\n\n" +
+                    $"Data Structure: Self-balancing AVL Tree ensures O(log n) operations\n" +
+                    $"Implementation: AVLTree<int, List<ServiceRequest>>\n" +
+                    $"Found: {results.Count} request(s) with {priority.Value} priority",
+                    "AVL Tree Search",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             }
         }
 
@@ -606,15 +626,29 @@ namespace MunicipalServicesReporting
             }
 
             ServiceRequest selected = (ServiceRequest)lvRequests.SelectedItems[0].Tag;
+            
+            // Graph BFS Traversal - O(V + E) complexity
             var related = requestManager.GetRelatedRequests(selected.RequestId);
 
             if (related.Count <= 1)
             {
-                MessageBox.Show($"Request '{selected.RequestId}' has no dependencies.", "Dependencies (Graph Traversal)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $"Request '{selected.RequestId}' has no dependencies.\n\n" +
+                    $"Data Structure: Graph with adjacency list representation\n" +
+                    $"Algorithm: Breadth-First Search (BFS) for finding related requests",
+                    "Dependencies (Graph Traversal)",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             }
             else
             {
-                string message = $"Related Requests (Using Graph BFS Traversal):\n\n";
+                string message = $"✓ Related Requests Found Using Graph BFS Traversal!\n\n" +
+                                $"Data Structure: ServiceRequestGraph (Adjacency List)\n" +
+                                $"Algorithm: Breadth-First Search - O(V + E) complexity\n" +
+                                $"Implementation: Graph tracks dependencies between service requests\n\n" +
+                                $"Dependencies for {selected.RequestId}:\n\n";
+
                 foreach (var req in related)
                 {
                     if (req.RequestId != selected.RequestId)
@@ -622,7 +656,8 @@ namespace MunicipalServicesReporting
                         message += $"• {req.RequestId}: {req.Title} [{req.Status}]\n";
                     }
                 }
-                MessageBox.Show(message, "Request Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show(message, "Request Dependencies - Graph Analysis", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -676,6 +711,7 @@ namespace MunicipalServicesReporting
                 BackColor = Color.Transparent
             };
             headerPanel.Controls.Add(lblRequestId);
+
             detailForm.Controls.Add(headerPanel);
 
             Panel contentPanel = new Panel

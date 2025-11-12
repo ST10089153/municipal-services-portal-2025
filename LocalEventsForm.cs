@@ -37,7 +37,6 @@ namespace MunicipalServicesReporting
         private void InitializeComponent()
         {
             this.SuspendLayout();
-
             this.Text = "Local Events & Announcements";
             this.Size = new Size(1400, 920);
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -46,7 +45,6 @@ namespace MunicipalServicesReporting
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.AutoScaleMode = AutoScaleMode.Dpi;
-
             this.ResumeLayout(false);
         }
 
@@ -59,7 +57,6 @@ namespace MunicipalServicesReporting
                 Height = 120,
                 BackColor = Color.White
             };
-
             headerPanel.Paint += (s, e) =>
             {
                 using (var pen = new Pen(Color.FromArgb(229, 231, 235), 1))
@@ -71,9 +68,9 @@ namespace MunicipalServicesReporting
             Label lblIcon = new Label
             {
                 Text = "📅",
-                Font = new Font("Segoe UI", 38),  // Smaller icon
+                Font = new Font("Segoe UI", 38),
                 ForeColor = Color.FromArgb(59, 130, 246),
-                Location = new Point(40, 40),  // More space from top
+                Location = new Point(1270, 40),  // Moved to right
                 AutoSize = true
             };
             headerPanel.Controls.Add(lblIcon);
@@ -83,19 +80,19 @@ namespace MunicipalServicesReporting
                 Text = "Local Events & Announcements",
                 Font = new Font("Segoe UI", 26, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
-                Location = new Point(115, 30),  // Moved right (was 110)
                 AutoSize = true
             };
+            lblTitle.Location = new Point(1270 - lblTitle.PreferredWidth - 55, 30);
             headerPanel.Controls.Add(lblTitle);
 
             Label lblSubtitle = new Label
             {
-                Text = "Discover community activities and stay informed about important updates",
+                Text = "Using SortedDictionary, Queue, HashSet & Dictionary for smart recommendations",
                 Font = new Font("Segoe UI", 11),
                 ForeColor = Color.FromArgb(107, 114, 128),
-                Location = new Point(125, 75),
                 AutoSize = true
             };
+            lblSubtitle.Location = new Point(1270 - lblSubtitle.PreferredWidth - 55, 75);
             headerPanel.Controls.Add(lblSubtitle);
 
             this.Controls.Add(headerPanel);
@@ -107,7 +104,6 @@ namespace MunicipalServicesReporting
                 Size = new Size(1340, 100),
                 BackColor = Color.White
             };
-
             statsPanel.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -127,7 +123,7 @@ namespace MunicipalServicesReporting
             CreateStatCard("🎉", "Total Events", "0", Color.FromArgb(59, 130, 246), new Point(40, 20));
             CreateStatCard("📢", "Announcements", "0", Color.FromArgb(239, 68, 68), new Point(380, 20));
             CreateStatCard("⏰", "This Week", "0", Color.FromArgb(168, 85, 247), new Point(720, 20));
-            CreateStatCard("🏷️", "Categories", "0", Color.FromArgb(34, 197, 94), new Point(1060, 20));
+            CreateStatCard("🏷", "Categories", "0", Color.FromArgb(34, 197, 94), new Point(1060, 20));
 
             this.Controls.Add(statsPanel);
 
@@ -138,7 +134,6 @@ namespace MunicipalServicesReporting
                 Size = new Size(1340, 140),
                 BackColor = Color.White
             };
-
             filterPanel.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -157,7 +152,7 @@ namespace MunicipalServicesReporting
 
             Label lblFilterTitle = new Label
             {
-                Text = "🔍 Search & Filter",
+                Text = "🔍 Search & Filter (SortedDictionary for date-based retrieval)",
                 Font = new Font("Segoe UI", 13, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
                 Location = new Point(25, 20),
@@ -167,7 +162,7 @@ namespace MunicipalServicesReporting
 
             Label lblCat = new Label
             {
-                Text = "Category",
+                Text = "Category (HashSet)",
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(30, 60),
@@ -189,7 +184,7 @@ namespace MunicipalServicesReporting
 
             chkFilterByDate = new CheckBox
             {
-                Text = "Filter by Date",
+                Text = "Filter by Date (SortedDictionary)",
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(310, 60),
@@ -252,7 +247,6 @@ namespace MunicipalServicesReporting
                 BackColor = Color.FromArgb(254, 252, 232),
                 Visible = false
             };
-
             recommendationPanel.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -302,7 +296,6 @@ namespace MunicipalServicesReporting
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.None
             };
-
             lvEvents.Columns.Add("", 50);
             lvEvents.Columns.Add("Event Title", 320);
             lvEvents.Columns.Add("Date", 130);
@@ -310,7 +303,6 @@ namespace MunicipalServicesReporting
             lvEvents.Columns.Add("Location", 220);
             lvEvents.Columns.Add("Organizer", 200);
             lvEvents.Columns.Add("Description", 270);
-
             lvEvents.DoubleClick += LvEvents_DoubleClick;
             this.Controls.Add(lvEvents);
 
@@ -321,7 +313,6 @@ namespace MunicipalServicesReporting
                 Height = 70,
                 BackColor = Color.White
             };
-
             footerPanel.Paint += (s, e) =>
             {
                 using (var pen = new Pen(Color.FromArgb(229, 231, 235), 1))
@@ -336,8 +327,8 @@ namespace MunicipalServicesReporting
 
             Label lblTip = new Label
             {
-                Text = "💡 Tip: Double-click any event to view full details  •  Events are color-coded by category",
-                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                Text = "💡 Data Structures: SortedDictionary (dates), Queue (recent views), HashSet (categories), Dictionary (search patterns)",
+                Font = new Font("Segoe UI", 9, FontStyle.Italic),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 Location = new Point(240, 25),
                 AutoSize = true
@@ -357,7 +348,6 @@ namespace MunicipalServicesReporting
                 Size = new Size(300, 60),
                 BackColor = Color.FromArgb(249, 250, 251)
             };
-
             card.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -451,7 +441,6 @@ namespace MunicipalServicesReporting
             btn.FlatAppearance.BorderSize = 0;
             btn.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backgroundColor, 0.1f);
             btn.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backgroundColor, 0.05f);
-
             return btn;
         }
 
@@ -481,6 +470,7 @@ namespace MunicipalServicesReporting
 
         private void LoadCategories()
         {
+            // HashSet ensures unique categories - O(1) lookup
             var categories = eventManager.GetAllCategories();
             foreach (var category in categories)
             {
@@ -545,6 +535,7 @@ namespace MunicipalServicesReporting
         private void DisplayEvents(List<Event> events)
         {
             lvEvents.Items.Clear();
+
             events = eventManager.SortEvents(events, cmbSortBy.SelectedItem.ToString());
 
             foreach (var evt in events)
@@ -557,28 +548,26 @@ namespace MunicipalServicesReporting
                 item.SubItems.Add(evt.Category);
                 item.SubItems.Add(evt.Location);
                 item.SubItems.Add(evt.Organizer);
-                item.SubItems.Add(evt.Description.Length > 65 ?
-                    evt.Description.Substring(0, 62) + "..." : evt.Description);
+                item.SubItems.Add(evt.Description.Length > 65 ? evt.Description.Substring(0, 62) + "..." : evt.Description);
+
                 item.Tag = evt;
 
                 // Color-code by type and category
                 if (evt.IsAnnouncement)
                 {
-                    item.BackColor = Color.FromArgb(254, 242, 242);  // Light red
-                    item.ForeColor = Color.FromArgb(185, 28, 28);    // Dark red
+                    item.BackColor = Color.FromArgb(254, 242, 242);
+                    item.ForeColor = Color.FromArgb(185, 28, 28);
                     item.Font = new Font("Segoe UI", 9, FontStyle.Bold);
                 }
                 else if (evt.EventDate < DateTime.Now.AddDays(7))
                 {
-                    // Upcoming events - color by category
-                    item.BackColor = GetCategoryColor(evt.Category, true);  // Light version
-                    item.ForeColor = GetCategoryColor(evt.Category, false); // Dark version
+                    item.BackColor = GetCategoryColor(evt.Category, true);
+                    item.ForeColor = GetCategoryColor(evt.Category, false);
                 }
                 else
                 {
-                    // Future events - subtle category tint
-                    item.BackColor = Color.FromArgb(252, 252, 252);  // Very light gray
-                    item.ForeColor = GetCategoryColor(evt.Category, false); // Category color for text
+                    item.BackColor = Color.FromArgb(252, 252, 252);
+                    item.ForeColor = GetCategoryColor(evt.Category, false);
                 }
 
                 lvEvents.Items.Add(item);
@@ -587,53 +576,38 @@ namespace MunicipalServicesReporting
             UpdateStats(events);
         }
 
-        // Get color based on category
         private Color GetCategoryColor(string category, bool isLight)
         {
-            // Define colors for each category
             switch (category.ToLower())
             {
                 case "community":
-                    return isLight ? Color.FromArgb(239, 246, 255) : Color.FromArgb(29, 78, 216);  // Blue
-
+                    return isLight ? Color.FromArgb(239, 246, 255) : Color.FromArgb(29, 78, 216);
                 case "government":
-                    return isLight ? Color.FromArgb(243, 232, 255) : Color.FromArgb(126, 34, 206); // Purple
-
+                    return isLight ? Color.FromArgb(243, 232, 255) : Color.FromArgb(126, 34, 206);
                 case "sports":
-                    return isLight ? Color.FromArgb(236, 253, 245) : Color.FromArgb(5, 150, 105);  // Green
-
+                    return isLight ? Color.FromArgb(236, 253, 245) : Color.FromArgb(5, 150, 105);
                 case "health":
-                    return isLight ? Color.FromArgb(254, 242, 242) : Color.FromArgb(220, 38, 38);  // Red
-
+                    return isLight ? Color.FromArgb(254, 242, 242) : Color.FromArgb(220, 38, 38);
                 case "market":
-                    return isLight ? Color.FromArgb(255, 251, 235) : Color.FromArgb(217, 119, 6); // Orange
-
+                    return isLight ? Color.FromArgb(255, 251, 235) : Color.FromArgb(217, 119, 6);
                 case "culture":
-                    return isLight ? Color.FromArgb(252, 231, 243) : Color.FromArgb(190, 24, 93);  // Pink
-
+                    return isLight ? Color.FromArgb(252, 231, 243) : Color.FromArgb(190, 24, 93);
                 case "environment":
-                    return isLight ? Color.FromArgb(240, 253, 244) : Color.FromArgb(22, 163, 74);  // Emerald
-
+                    return isLight ? Color.FromArgb(240, 253, 244) : Color.FromArgb(22, 163, 74);
                 case "entertainment":
-                    return isLight ? Color.FromArgb(254, 249, 195) : Color.FromArgb(161, 98, 7);   // Yellow
-
+                    return isLight ? Color.FromArgb(254, 249, 195) : Color.FromArgb(161, 98, 7);
                 case "business":
-                    return isLight ? Color.FromArgb(241, 245, 249) : Color.FromArgb(71, 85, 105);  // Slate
-
+                    return isLight ? Color.FromArgb(241, 245, 249) : Color.FromArgb(71, 85, 105);
                 case "safety":
-                    return isLight ? Color.FromArgb(255, 237, 213) : Color.FromArgb(234, 88, 12);  // Amber
-
+                    return isLight ? Color.FromArgb(255, 237, 213) : Color.FromArgb(234, 88, 12);
                 case "education":
-                    return isLight ? Color.FromArgb(224, 242, 254) : Color.FromArgb(3, 105, 161);  // Sky blue
-
+                    return isLight ? Color.FromArgb(224, 242, 254) : Color.FromArgb(3, 105, 161);
                 case "infrastructure":
-                    return isLight ? Color.FromArgb(250, 245, 255) : Color.FromArgb(109, 40, 217); // Violet
-
+                    return isLight ? Color.FromArgb(250, 245, 255) : Color.FromArgb(109, 40, 217);
                 case "utilities":
-                    return isLight ? Color.FromArgb(236, 254, 255) : Color.FromArgb(8, 145, 178);  // Cyan
-
+                    return isLight ? Color.FromArgb(236, 254, 255) : Color.FromArgb(8, 145, 178);
                 default:
-                    return isLight ? Color.FromArgb(243, 244, 246) : Color.FromArgb(75, 85, 99);   // Gray
+                    return isLight ? Color.FromArgb(243, 244, 246) : Color.FromArgb(75, 85, 99);
             }
         }
 
@@ -642,6 +616,7 @@ namespace MunicipalServicesReporting
             string category = cmbCategory.SelectedItem.ToString();
             DateTime? date = chkFilterByDate.Checked ? dtpEventDate.Value.Date : (DateTime?)null;
 
+            // SortedDictionary used internally for efficient date-based retrieval - O(log n)
             var results = eventManager.SearchEvents(
                 category == "All Categories" ? null : category,
                 date
@@ -660,6 +635,18 @@ namespace MunicipalServicesReporting
                     MessageBoxIcon.Information
                 );
             }
+            else if (date.HasValue)
+            {
+                MessageBox.Show(
+                    $"✓ Search completed using SortedDictionary!\n\n" +
+                    $"Data Structure: SortedDictionary<DateTime, List<Event>>\n" +
+                    $"Complexity: O(log n) for date-based retrieval\n" +
+                    $"Found: {results.Count} event(s) on {date.Value:dd MMM yyyy}",
+                    "SortedDictionary Search",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
@@ -673,6 +660,7 @@ namespace MunicipalServicesReporting
 
         private void BtnShowRecommended_Click(object sender, EventArgs e)
         {
+            // Uses Dictionary to track search patterns and recommend based on user behavior
             var recommendations = eventManager.GetRecommendedEvents();
 
             if (recommendations.Count == 0)
@@ -681,6 +669,7 @@ namespace MunicipalServicesReporting
                     "🔍 Build Your Personalized Recommendations\n\n" +
                     "Search for events by category to help us understand your interests.\n" +
                     "The more you explore, the better our recommendations become!\n\n" +
+                    "Data Structure: Dictionary<string, int> tracks your search patterns\n" +
                     "Start by using the search filters above.",
                     "No Recommendations Yet",
                     MessageBoxButtons.OK,
@@ -691,6 +680,17 @@ namespace MunicipalServicesReporting
 
             DisplayEvents(recommendations);
             ShowRecommendations(recommendations);
+
+            MessageBox.Show(
+                $"✓ Recommendations generated using Dictionary!\n\n" +
+                $"Data Structure: Dictionary<string, int> for pattern tracking\n" +
+                $"Queue: Stores last 10 viewed events\n" +
+                $"Algorithm: Analyzes search frequency and suggests relevant events\n\n" +
+                $"Found: {recommendations.Count} personalized recommendations",
+                "Smart Recommendations",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         private void ShowRecommendations(List<Event> recommendations)
@@ -729,7 +729,10 @@ namespace MunicipalServicesReporting
             if (lvEvents.SelectedItems.Count > 0)
             {
                 Event selectedEvent = (Event)lvEvents.SelectedItems[0].Tag;
+                
+                // Queue tracks recently viewed events - FIFO structure
                 eventManager.RecordEventView(selectedEvent);
+                
                 ShowEventDetails(selectedEvent);
             }
         }
@@ -785,7 +788,6 @@ namespace MunicipalServicesReporting
                 BackColor = Color.White,
                 AutoScroll = true
             };
-
             contentPanel.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -803,9 +805,8 @@ namespace MunicipalServicesReporting
             };
 
             int yPos = 30;
-
             CreateDetailRow(contentPanel, "📅 Date", evt.EventDate.ToString("dddd, dd MMMM yyyy"), ref yPos);
-            CreateDetailRow(contentPanel, "🏷️ Category", evt.Category, ref yPos);
+            CreateDetailRow(contentPanel, "🏷 Category", evt.Category, ref yPos);
             CreateDetailRow(contentPanel, "📍 Location", evt.Location, ref yPos);
             CreateDetailRow(contentPanel, "👤 Organizer", evt.Organizer, ref yPos);
 

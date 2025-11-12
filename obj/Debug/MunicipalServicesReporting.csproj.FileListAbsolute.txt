@@ -18,3 +18,13 @@ C:\Users\charn\Downloads\bca3-prog7312-part-2-submission-ST10089153-main\bca3-pr
 C:\Users\charn\Downloads\bca3-prog7312-part-2-submission-ST10089153-main\bca3-prog7312-part-2-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.csproj.CoreCompileInputs.cache
 C:\Users\charn\Downloads\bca3-prog7312-part-2-submission-ST10089153-main\bca3-prog7312-part-2-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.exe
 C:\Users\charn\Downloads\bca3-prog7312-part-2-submission-ST10089153-main\bca3-prog7312-part-2-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.pdb
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\bin\Debug\MunicipalServicesReporting.exe.config
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\bin\Debug\MunicipalServicesReporting.exe
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\bin\Debug\MunicipalServicesReporting.pdb
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.csproj.AssemblyReference.cache
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.csproj.SuggestedBindingRedirects.cache
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.Properties.Resources.resources
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.csproj.GenerateResource.cache
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.csproj.CoreCompileInputs.cache
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.exe
+C:\Users\charn\Downloads\bca3-prog7312-poe-submission-ST10089153-main (1)\bca3-prog7312-poe-submission-ST10089153-main\obj\Debug\MunicipalServicesReporting.pdb
