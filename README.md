@@ -712,17 +712,7 @@ Hart, T.G.B. et al. (2019) 'Innovation for Development in South Africa', *Forum 
 **Institution:** Varsity College  
 **Module:** PROG7312 - Programming 3B
 
----
 
-## 🙏 Acknowledgments
-
-- MIT OpenCourseWare for algorithms lectures
-- Cormen et al. for the textbook
-- Stack Overflow community
-- Varsity College lecturers
-- South African municipalities
-
----
 
 **Made with ❤️ for South African Communities**
 
