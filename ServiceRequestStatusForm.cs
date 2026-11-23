@@ -90,6 +90,7 @@ namespace MunicipalServicesReporting
             Label lblSubtitle = new Label
             {
                 Text = "Track requests using BST, AVL Tree, Red-Black Tree, Min Heap & Graph",
+                UseMnemonic = false, // show "&" literally instead of as a keyboard-shortcut marker
                 Font = new Font("Segoe UI", 11),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 AutoSize = true
@@ -155,6 +156,7 @@ namespace MunicipalServicesReporting
             Label lblFilterTitle = new Label
             {
                 Text = "🔍 Search & Filter (Using BST, AVL Tree, Red-Black Tree)",
+                UseMnemonic = false, // show "&" literally instead of as a keyboard-shortcut marker
                 Font = new Font("Segoe UI", 13, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
                 Location = new Point(25, 20),
@@ -354,7 +356,9 @@ namespace MunicipalServicesReporting
                 Font = new Font("Segoe UI", 24),
                 ForeColor = accentColor,
                 Location = new Point(15, 12),
-                AutoSize = true
+                AutoSize = false,
+                Size = new Size(52, 40), // fixed width so the icon cannot overlap the label text at x=70
+                TextAlign = ContentAlignment.MiddleCenter
             };
             card.Controls.Add(lblIcon);
 

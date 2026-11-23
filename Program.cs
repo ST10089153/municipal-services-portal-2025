@@ -415,6 +415,7 @@ namespace MunicipalServicesReporting
             Label lblTitle = new Label
             {
                 Text = title,
+                UseMnemonic = false, // titles contain "&"
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = enabled ? Color.FromArgb(31, 41, 55) : Color.FromArgb(156, 163, 175),
                 Location = new Point(125, 28),
@@ -548,6 +549,8 @@ namespace MunicipalServicesReporting
         private Button btnBack;
         private NotifyIcon notifier;
         private int participationPoints = 0;
+        // Full paths of files the user picked; they are only copied into storage when the report is submitted
+        private readonly List<string> pendingAttachments = new List<string>();
 
         public ReportIssuesForm()
         {
@@ -850,21 +853,11 @@ namespace MunicipalServicesReporting
                 {
                     foreach (var file in ofd.FileNames)
                     {
-                        try
-                        {
-                            var storedName = IssueRepository.CopyAttachmentToStorage(file);
-                            if (storedName != null)
-                            {
-                                lstAttachments.Items.Add("📎 " + Path.GetFileName(file));
-                                UpdateEngagement();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Failed to attach {Path.GetFileName(file)}:\n{ex.Message}",
-                                "Attachment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                        if (pendingAttachments.Contains(file)) continue;
+                        pendingAttachments.Add(file);
+                        lstAttachments.Items.Add("📎 " + Path.GetFileName(file));
                     }
+                    UpdateEngagement();
                 }
             }
         }
@@ -897,13 +890,16 @@ namespace MunicipalServicesReporting
                 ParticipationPointsAwarded = 5
             };
 
-            foreach (var item in lstAttachments.Items)
-            {
-                if (item is string fn) issue.AttachmentFileNames.Add(fn.Replace("📎 ", ""));
-            }
-
             try
             {
+                // Copy attachments now and record the stored (unique) file names so the
+                // saved report points at the files in the attachments folder
+                foreach (var file in pendingAttachments)
+                {
+                    var storedName = IssueRepository.CopyAttachmentToStorage(file);
+                    if (storedName != null) issue.AttachmentFileNames.Add(storedName);
+                }
+
                 IssueRepository.AddIssue(issue);
                 participationPoints += issue.ParticipationPointsAwarded;
                 lblPoints.Text = $"⭐ Points: {participationPoints}";
@@ -926,6 +922,7 @@ namespace MunicipalServicesReporting
                 txtLocation.Clear();
                 rtbDescription.Clear();
                 lstAttachments.Items.Clear();
+                pendingAttachments.Clear();
                 cmbCategory.SelectedIndex = 0;
                 UpdateEngagement();
             }

@@ -208,10 +208,10 @@ namespace MunicipalServicesReporting
 
             // Find most searched categories
             var topCategories = searchPatternTracker
+                .Where(kvp => kvp.Key != "AllCategories") // filter first so "All" searches don't use up a top-3 slot
                 .OrderByDescending(kvp => kvp.Value)
                 .Take(3)
                 .Select(kvp => kvp.Key)
-                .Where(k => k != "AllCategories")
                 .ToList();
 
             List<Event> recommended = new List<Event>();
