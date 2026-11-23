@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The app itself is a .NET Framework 4.7.2 WinForms project, which only builds on Windows.
+    The data structures and managers have no UI dependencies, so the tests compile those
+    source files directly. That lets the tests run on any OS (including GitHub Actions on Linux).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\DataStructures\*.cs" Link="App\DataStructures\%(Filename)%(Extension)" />
+    <Compile Include="..\..\ServiceRequest.cs" Link="App\ServiceRequest.cs" />
+    <Compile Include="..\..\ServiceRequestManager.cs" Link="App\ServiceRequestManager.cs" />
+    <Compile Include="..\..\Event.cs" Link="App\Event.cs" />
+    <Compile Include="..\..\EventManager.cs" Link="App\EventManager.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+</Project>
